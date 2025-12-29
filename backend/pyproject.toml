@@ -1,0 +1,27 @@
+[project]
+name = "core-backend"
+version = "0.1.0"
+description = "CORE System Backend FastAPI app to orchestrate the cognitive architecture and agentic capabilities."
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "anthropic>=0.52.0",
+    "fastapi>=0.115.12",
+    "fastmcp>=2.5.1",
+    "langchain>=0.3.25",
+    "langchain-anthropic>=0.3.15",
+    "langchain-openai>=0.3.18",
+    "langgraph>=0.4.7",
+    "openai>=1.82.0",
+    "psutil>=7.0.0",
+    "asyncpg>=0.29.0",
+    "python-dotenv>=1.0.1",
+    "pypdf>=5.1.0",
+    "python-docx>=1.1.2",
+    "httpx>=0.27.0",
+]
+
+[dependency-groups]
+dev = [
+    "black>=25.1.0",
+]

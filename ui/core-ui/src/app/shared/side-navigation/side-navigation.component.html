@@ -1,0 +1,60 @@
+<nav class="side-nav">
+  <!-- Main Navigation -->
+  <div class="nav-content">
+    <!-- Primary Navigation -->
+    <div class="nav-section">
+      <div class="nav-items">
+        <button mat-icon-button class="nav-item" [routerLink]="['/dashboard']" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" matTooltip="Dashboard" matTooltipPosition="right">
+          <mat-icon>dashboard</mat-icon>
+        </button>
+
+        <button mat-icon-button class="nav-item" [routerLink]="['/command-center']" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" matTooltip="Command Center" matTooltipPosition="right">
+          <mat-icon>grid_on</mat-icon>
+        </button>
+
+        <button mat-icon-button class="nav-item" routerLinkActive="active" [routerLinkActiveOptions]="{exact: false}" [matMenuTriggerFor]="agentsMenu" #agentsMenuTrigger="matMenuTrigger" matTooltip="Agents" matTooltipPosition="right" (click)="openMenu('agents')">
+          <mat-icon>smart_toy</mat-icon>
+        </button>
+        <mat-menu #agentsMenu="matMenu" class="side-menu" xPosition="after" yPosition="below">
+          <button mat-menu-item [routerLink]="['/agents']"><mat-icon>add_circle</mat-icon><span>Agent Builder</span></button>
+          <button mat-menu-item [routerLink]="['/agents/library']"><mat-icon>library_books</mat-icon><span>My Agent Library</span></button>
+          <button mat-menu-item [routerLink]="['/agents/marketplace']"><mat-icon>store</mat-icon><span>Agent Marketplace</span></button>
+          <button mat-menu-item [routerLink]="['/agents/sentries']"><mat-icon>visibility</mat-icon><span>Sentries</span></button>
+        </mat-menu>
+
+        <button mat-icon-button class="nav-item" routerLinkActive="active" [routerLinkActiveOptions]="{exact: false}" [matMenuTriggerFor]="workflowsMenu" #workflowsMenuTrigger="matMenuTrigger" matTooltip="Workflows" matTooltipPosition="right" (click)="openMenu('workflows')">
+          <mat-icon>account_tree</mat-icon>
+        </button>
+        <mat-menu #workflowsMenu="matMenu" class="side-menu" xPosition="after" yPosition="below">
+          <button mat-menu-item [routerLink]="['/workflows/new']"><mat-icon>add_box</mat-icon><span>New Workflow</span></button>
+          <button mat-menu-item [routerLink]="['/workflows']"><mat-icon>timeline</mat-icon><span>Active Workflows</span></button>
+          <button mat-menu-item [routerLink]="['/workflows/history']"><mat-icon>history</mat-icon><span>History</span></button>
+        </mat-menu>
+
+        <button mat-icon-button class="nav-item" [routerLink]="['/knowledge']" routerLinkActive="active" [routerLinkActiveOptions]="{exact: false}" matTooltip="Knowledge Base" matTooltipPosition="right">
+          <mat-icon>psychology</mat-icon>
+        </button>
+
+        <button mat-icon-button class="nav-item" [routerLink]="['/analytics']" routerLinkActive="active" [routerLinkActiveOptions]="{exact: false}" matTooltip="Analytics" matTooltipPosition="right">
+          <mat-icon>analytics</mat-icon>
+        </button>
+
+        <button mat-icon-button class="nav-item" [routerLink]="['/conversations']" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" matTooltip="Conversations" matTooltipPosition="right">
+          <mat-icon>chat</mat-icon>
+        </button>
+
+        <!-- Creative Design (Worlds/Boards/Wiki/Marketplace) -->
+        <button mat-icon-button class="nav-item" routerLinkActive="active" [routerLinkActiveOptions]="{exact: false}" [matMenuTriggerFor]="creativeMenu" #creativeMenuTrigger="matMenuTrigger" matTooltip="Creative Design" matTooltipPosition="right" (click)="openMenu('creative')">
+          <mat-icon>palette</mat-icon>
+        </button>
+        <mat-menu #creativeMenu="matMenu" class="side-menu" xPosition="after" yPosition="below">
+          <button mat-menu-item [routerLink]="['/creative']"><mat-icon>dashboard_customize</mat-icon><span>Creative Studio</span></button>
+          <button mat-menu-item [routerLink]="['/creative/worlds']"><mat-icon>grid_view</mat-icon><span>My Worlds</span></button>
+          <button mat-menu-item [routerLink]="['/creative/boards']"><mat-icon>view_quilt</mat-icon><span>Boards</span></button>
+          <button mat-menu-item [routerLink]="['/creative/wiki']"><mat-icon>article</mat-icon><span>Wiki</span></button>
+          <button mat-menu-item [routerLink]="['/creative/marketplace']"><mat-icon>storefront</mat-icon><span>Marketplace</span></button>
+        </mat-menu>
+      </div>
+    </div>
+  </div>
+</nav>

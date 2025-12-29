@@ -1,0 +1,266 @@
+.chat-window-container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  max-height: 100vh;
+  width: 100%;
+  background: rgba(13, 20, 33, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  overflow: hidden;
+
+  .messages {
+    flex: 1 1 auto;
+    min-height: 0;
+    padding: 16px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+
+    .message {
+      max-width: 85%;
+      padding: 10px 14px;
+      border-radius: 12px;
+      font-size: 0.9rem;
+      &.user {
+        align-self: flex-end;
+        background: linear-gradient(135deg, #00ffff 0%, #0088ff 100%);
+        color: #000000;
+      }
+      &.assistant {
+        align-self: flex-start;
+        background: rgba(255, 255, 255, 0.1);
+        color: #ffffff;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+      }
+    }
+  }
+
+  .input-area {
+    display: flex;
+    align-items: flex-end;
+    gap: 8px;
+    padding: 12px 16px;
+    backdrop-filter: blur(8px);
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    background: rgba(13, 20, 33, 0.8);
+    flex-shrink: 0;
+
+    .textarea-wrapper {
+      flex: 1 1 auto;
+      display: flex;
+      align-items: stretch;
+    }
+
+    .input-field {
+      width: 100%;
+      min-height: 2.5rem;
+      max-height: 15rem;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      border-radius: 6px;
+      padding: 8px 12px;
+      color: #ffffff;
+      font-size: 0.9rem;
+      outline: none;
+      transition: border-color 0.15s ease-out, background 0.15s ease-out;
+      resize: none;
+      overflow-y: auto;
+      font-family: inherit;
+      line-height: 1.5;
+      display: block;
+      box-sizing: border-box;
+      will-change: height;
+
+      &:focus {
+        border-color: #00ffff;
+        background: rgba(0, 255, 255, 0.05);
+      }
+
+      &::placeholder {
+        color: rgba(255, 255, 255, 0.5);
+      }
+
+      /* Custom scrollbar for textarea */
+      &::-webkit-scrollbar {
+        width: 6px;
+      }
+
+      &::-webkit-scrollbar-track {
+        background: rgba(255, 255, 255, 0.05);
+        border-radius: 3px;
+      }
+
+      &::-webkit-scrollbar-thumb {
+        background: rgba(255, 255, 255, 0.2);
+        border-radius: 3px;
+
+        &:hover {
+          background: rgba(255, 255, 255, 0.3);
+        }
+      }
+    }
+
+    button[type="submit"] {
+      flex-shrink: 0;
+      align-self: flex-end;
+      margin-bottom: 0;
+    }
+  }
+
+  /* Header containing tool & model select icons */
+  .header {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 8px 16px 0;
+    background: transparent;
+    flex-wrap: wrap; /* allow controls to wrap in narrow sidebars */
+    .mat-mdc-form-field {
+      --field-height: 36px;
+    }
+
+    /* Solarpunk border for compact selects using masked pseudo-border (no white seams) */
+    .mat-mdc-text-field-wrapper {
+      position: relative;
+      border: 1px solid rgba(53, 255, 137, 0.25) !important;
+      border-radius: 12px !important;
+      background: linear-gradient(135deg, rgba(8, 28, 35, 0.6), rgba(20, 60, 70, 0.4)) !important;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35) !important;
+      outline: none !important;
+      overflow: hidden; /* ensure rounded corners clip inner contents */
+    }
+    .mat-mdc-text-field-wrapper::before {
+      display: none !important;
+    }
+    .mat-mdc-form-field.mat-focused .mat-mdc-text-field-wrapper {
+      background: linear-gradient(135deg, rgba(8, 28, 35, 0.75), rgba(20, 60, 70, 0.55)) !important;
+      box-shadow: 0 0 0 0 rgba(0,0,0,0), 0 8px 24px rgba(0, 0, 0, 0.45) !important;
+      border-color: rgba(53, 255, 137, 0.5) !important;
+      box-shadow: 0 0 8px rgba(53, 255, 137, 0.30) !important;
+    }
+
+    /* Remove any remaining helper/underline area that can appear as a thin line */
+    .mat-mdc-form-field-subscript-wrapper {
+      display: none !important;
+    }
+
+    /* Completely hide the default Material notched outline */
+    .mdc-notched-outline,
+    .mat-mdc-notched-outline,
+    .mdc-notched-outline__leading,
+    .mdc-notched-outline__trailing,
+    .mdc-notched-outline__notch {
+      display: none !important;
+      opacity: 0 !important;
+      border: none !important;
+      background: transparent !important;
+    }
+
+    /* Ensure trigger text is perfectly centered and never sits high */
+    .mat-mdc-form-field-infix {
+      min-height: 36px;
+      height: 36px;
+      padding: 0 8px !important;
+      display: flex;
+      align-items: center;
+    }
+    .mat-mdc-select-trigger {
+      height: 36px;
+      display: flex;
+      align-items: center;
+      line-height: 1;
+    }
+    .mat-mdc-select-value {
+      display: flex;
+      align-items: center;
+      line-height: 1.1;
+    }
+    .mat-mdc-select-arrow-wrapper {
+      display: flex;
+      align-items: center;
+    }
+  }
+
+  /** Tools button placeholder **/
+  .tools-btn {
+    color: #ffffff;
+  }
+
+  /* Compact but readable model select */
+  .model-select {
+    width: auto;
+    min-width: 150px;
+    flex: 0 0 auto;
+
+    .mat-mdc-text-field-wrapper {
+      padding: 0 8px !important;
+    }
+
+    .mat-mdc-form-field-infix {
+      padding-left: 0 !important;
+      padding-right: 0 !important;
+    }
+  }
+
+  /* Knowledgebase selectors */
+  .kb-select, .kb-file-select {
+    width: auto;
+    min-width: 210px; /* ensure RAG text is never truncated */
+    .mat-mdc-text-field-wrapper {
+      padding: 0 8px !important;
+      height: 36px;
+    }
+    .mat-mdc-form-field-infix {
+      padding-left: 0 !important;
+      padding-right: 0 !important;
+      min-height: 36px;
+      display: flex;
+      align-items: center; /* vertically center the select value */
+    }
+    .mat-mdc-select {
+      color: #cfe9ff;
+    }
+    .mat-mdc-select-value {
+      display: flex;
+      align-items: center;
+    }
+  }
+}
+
+/* Global styles for model dropdown panel (outside container for global scope) */
+.model-dropdown-panel {
+  background: linear-gradient(135deg, rgba(8, 28, 35, 0.85), rgba(20, 60, 70, 0.75)) !important;
+  backdrop-filter: blur(16px) !important;
+  border: 1px solid transparent !important;
+  border-image: var(--gradient-solarpunk) 1 !important;
+  border-radius: 10px !important;
+  outline: none !important;
+  box-shadow:
+    0 12px 36px rgba(0, 0, 0, 0.55),
+    0 0 0 1px rgba(53, 255, 137, 0.15) !important;
+
+  .mat-mdc-option {
+    color: #e8f0ff !important;
+    min-height: 42px !important;
+    padding: 0 16px !important;
+    margin: 2px 6px !important;
+    border-radius: 8px !important;
+    
+    &:hover:not(.mdc-list-item--disabled) {
+      background: linear-gradient(135deg, rgba(53, 255, 137, 0.12), rgba(0, 234, 255, 0.12)) !important;
+    }
+    
+    &.mat-mdc-option-active,
+    &.mdc-list-item--selected {
+      background: linear-gradient(135deg, rgba(53, 255, 137, 0.2), rgba(0, 234, 255, 0.2)) !important;
+      color: #ffffff !important;
+      text-shadow: 0 0 6px rgba(0, 234, 255, 0.25);
+    }
+  }
+  
+  .mat-mdc-option .mdc-list-item__primary-text {
+    color: #ffffff !important;
+  }
+}

@@ -1,0 +1,86 @@
+<div class="chat-window-container">
+  <!-- Header containing tools and model-select icons aligned to the far right -->
+  <div class="header">
+    <button mat-icon-button aria-label="Tools" class="tools-btn">
+      <mat-icon>build</mat-icon>
+    </button>
+
+    <mat-form-field appearance="outline" class="kb-select">
+      <mat-select [(ngModel)]="kbMode" name="kbMode" panelClass="model-dropdown-panel">
+        <mat-option value="none">No RAG</mat-option>
+        <mat-option value="all">All Knowledgebase</mat-option>
+        <mat-option value="file">Specific File</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    @if (kbMode === 'file') {
+      <mat-form-field appearance="outline" class="kb-file-select">
+        <mat-select [(ngModel)]="kbFileId" name="kbFile">
+          @for (f of kbFiles; track f.id) {
+            <mat-option [value]="f.id">{{ f.originalName }}</mat-option>
+          }
+        </mat-select>
+      </mat-form-field>
+    }
+
+    <mat-form-field appearance="outline" class="model-select">
+      <mat-select [(ngModel)]="selectedProvider" name="provider" (selectionChange)="onProviderChange()" panelClass="model-dropdown-panel">
+        <mat-option value="openai">OpenAI</mat-option>
+        <mat-option value="ollama">Local (Ollama)</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="model-select">
+      <mat-select [(ngModel)]="selectedModel" name="model" panelClass="model-dropdown-panel">
+        @for (m of models; track m) {
+          <mat-option [value]="m">{{ m }}</mat-option>
+        }
+      </mat-select>
+    </mat-form-field>
+
+    @if (selectedProvider === 'ollama') {
+      <button mat-icon-button aria-label="Pull model" [disabled]="isPullingModel" (click)="pullLocalModel()">
+        <mat-icon>download</mat-icon>
+      </button>
+      <mat-form-field appearance="outline" class="kb-file-select">
+        <input matInput placeholder="model:tag (e.g., gpt-oss:20b)" [(ngModel)]="newLocalModelName" name="newLocalModelName" />
+      </mat-form-field>
+      <button mat-icon-button aria-label="Pull custom model" [disabled]="isPullingModel || !newLocalModelName" (click)="pullArbitraryLocalModel()">
+        <mat-icon>cloud_download</mat-icon>
+      </button>
+    }
+  </div>
+
+  <div class="messages" #scrollContainer>
+    @for (msg of messages; track $index) {
+      <div class="message" [class]="msg.sender">
+        @if (msg.sender === 'assistant') {
+          <markdown [data]="msg.text"></markdown>
+        } @else {
+          <span class="msg-text">{{ msg.text }}</span>
+        }
+      </div>
+    }
+  </div>
+
+  <form class="input-area" (ngSubmit)="sendMessage()">
+    <div class="textarea-wrapper">
+      <textarea
+        matInput
+        cdkTextareaAutosize
+        cdkAutosizeMinRows="1"
+        cdkAutosizeMaxRows="10"
+        cdkAutosizeDebounceTime="100"
+        class="input-field"
+        placeholder="Type a message…"
+        [(ngModel)]="newMessage"
+        name="newMessage"
+        autocomplete="off"
+        (keydown.enter)="onEnterKey($event)"
+      ></textarea>
+    </div>
+    <button mat-icon-button color="primary" type="submit" aria-label="Send message">
+      <mat-icon>send</mat-icon>
+    </button>
+  </form>
+</div>
